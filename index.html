@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Fair Scheduler</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <link rel="stylesheet" href="./index.css">
+    </head>
+    <body>
+        <h2>Input table</h2>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Q1 prefs</th>
+                    <th scope="col">Q2 prefs</th>
+                    <th scope="col">Q3 prefs</th>
+                    <th scope="col">Q4 prefs</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody id='employeetbody'>
+                <tr id='roww' class='hidden'>
+                    <th scope="row">
+                        <input class="form-control form-control-sm" type="text" placeholder="Name" aria-label="Name">
+                    </th>
+                    <td>
+                        <table class="table table-primary table-sm table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Day</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Swing</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2 selected>2</option>
+                                            <option value=3>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Grave</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3 selected>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table table-primary table-sm table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Day</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Swing</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2 selected>2</option>
+                                            <option value=3>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Grave</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3 selected>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table table-primary table-sm table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Day</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Swing</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2 selected>2</option>
+                                            <option value=3>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Grave</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3 selected>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table table-primary table-sm table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Day</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Swing</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2 selected>2</option>
+                                            <option value=3>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Grave</th>
+                                    <td>
+                                        <select name='prio'>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3 selected>3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="deleteEmployee(this.parentElement.parentElement)"></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" onclick='addEmployee()'>Add Employee</button>
+        <button class="btn btn-primary" onclick='saveData()'>Save</button>
+        <br/>
+        <br/>
+        <br/>
+        <div class="hidden">
+            <h2>Output Table</h2>
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Q1</th>
+                        <th scope="col">Q2</th>
+                        <th scope="col">Q3</th>
+                        <th scope="col">Q4</th>
+                    </tr>
+                </thead>
+                <tbody id='assignments'>
+                    <tr>
+                        <td>
+                            boby
+                        </td>
+                        <td>
+                            Day
+                        </td>
+                        <td>
+                            Day
+                        </td>
+                        <td>
+                            Swing
+                        </td>
+                        <td>
+                            Grave
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        
+
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        <script src='./index.js' async defer></script>
+    </body>
+</html>
