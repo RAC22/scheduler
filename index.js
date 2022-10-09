@@ -1,6 +1,7 @@
 const employeeHtmlRow = document.getElementById('roww')
 const employeeTable = document.getElementById('employeetbody')
 let counter = 1
+let numPer = 2
 function addEmployee () {
     let clone = employeeHtmlRow.cloneNode(true)
     clone.classList.remove('hidden')
@@ -75,7 +76,105 @@ let checkLocal = () => {
 }
 checkLocal();
 
-function buildOutput () {
-    
+function calculateSchedule () {
+    let schedule = {
+        q1 : {
+            day : [],
+            swing : [],
+            grave : []
+        },
+        q2 : {
+            day : [],
+            swing : [],
+            grave : []
+        },
+        q3 : {
+            day : [],
+            swing : [],
+            grave : []
+        },
+        q4 : {
+            day : [],
+            swing : [],
+            grave : []
+        }
+    }
+    let employees = JSON.parse(window.localStorage.getItem('employees'))
+    function shuffle (array) {
+        let currentIndex = array.length, randomIndex
+        while (currentIndex != 0){
+            randomIndex = Math.floor(Math.random() * currentIndex)
+            currentIndex--
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex] , array[currentIndex]]
+        }
+        return array
+    }
+    function findPrio (q , shift , employeeList) {
+        if(employeeList.length > 0){
+            for(let i in employeeList){
+                if(employeeList[i][q]?.[`${q}${shift}`] == 1){
+                    delete employeeList[i][q]
+                    return employeeList[i].name
+                }
+            }
+            for(let i in employeeList){
+                if(employeeList[i][q]?.[`${q}${shift}`] == 2){
+                    delete employeeList[i][q]
+                    return employeeList[i].name
+                }
+            }
+            for(let i in employeeList){
+                if(employeeList[i][q]?.[`${q}${shift}`] == 3){
+                    delete employeeList[i][q]
+                    return employeeList[i].name
+                }
+            }
+        }
+    }
+    if(employees.length > 0) {
+        let shuffled = shuffle(employees)
+        // fill shifts for first prios
+        for (let i in shuffled){
+            for(let q in schedule){
+                for(let shift in schedule[q]){
+                    if(shuffled[i][q]?.[`${q}${shift}`] == 1 && schedule[q][shift].length < numPer){
+                        schedule[q][shift].push(shuffled[i].name)
+                        delete shuffled[i][q]
+                    }
+                }
+            }
+        }
+        // fill shifts to minium numbers
+        for(let q in schedule){
+            for(let shift in schedule[q]){
+                while(schedule[q][shift].length < numPer){
+                    schedule[q][shift].push(findPrio(q , shift, shuffled))
+                }
+            }
+        }
+        // fill shifts evenly with leftovers
+        for (let i in shuffled){
+            for(let q in schedule){
+                if(shuffled[i]?.[q]){
+                    for(let shift in schedule[q]){
+                        schedule[q][shift].push(findPrio(q, shift, shuffled))
+                        delete shuffled[i][q]
+                        continue
+                    }
+                }
+            }
+        }
+        //remove any undefined values from schedule arrays.
+        for(let q in schedule){
+            for(let s in schedule[q]){
+                for(let n in schedule[q][s]){
+                    if(schedule[q][s][n] == undefined){
+                        schedule[q][s].splice(n, 1)
+                    }
+                }
+            }
+        }
+    }
+    console.log(schedule)
 }
-
+calculateSchedule();
