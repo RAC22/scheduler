@@ -1,5 +1,6 @@
 const employeeHtmlRow = document.getElementById('roww')
 const employeeTable = document.getElementById('employeetbody')
+const output = document.getElementById('assignments')
 let counter = 1
 let numPer = 2
 function addEmployee () {
@@ -19,6 +20,10 @@ function saveData (){
     for (let i in employees){
         if(i > 0){
             let name = employees[i].getElementsByTagName('input')[0].value
+            if(!name){
+                window.alert('Please make sure Employees have names.')
+                return
+            }
             let selects = employees[i].getElementsByTagName('select')
             let employee = {
                 name : name,
@@ -48,10 +53,10 @@ function saveData (){
         }
     }
     localStorage.setItem('employees', JSON.stringify(employeeArray))
+    calculateSchedule();
 }
 let checkLocal = () => {
     let employees = JSON.parse(window.localStorage.getItem('employees'))
-    console.log(employees)
     if(employees.length > 0) {
         for (let i in employees){
             let row = document.createElement('tr')
@@ -175,6 +180,69 @@ function calculateSchedule () {
             }
         }
     }
-    console.log(schedule)
+    for(let i in employees){
+        employees[i].shifts = []
+    }
+    for(let i in employees){
+        for(let q in schedule){
+            for(let s in schedule[q]){
+                let name = employees[i].name
+                if(schedule[q][s].includes(name)){
+                    employees[i].shifts.push(s)
+                }
+            }
+        }
+    }
+    buildOutput(employees);
 }
 calculateSchedule();
+function buildOutput (emps) {
+    output.innerHTML = ''
+    for(let i in emps){
+        let row = document.createElement('tr')
+        output.appendChild(row)
+        let tdname = document.createElement('td')
+        let nameNode = document.createTextNode(emps[i].name)
+        tdname.append(nameNode)
+        row.appendChild(tdname)
+        for(let j in emps[i].shifts){
+            let td = document.createElement('td')
+            let shiftNode = document.createTextNode(emps[i].shifts[j])
+            td.append(shiftNode)
+            row.appendChild(td)
+        }
+    }
+    let totalsRow = document.createElement('tr')
+    output.appendChild(totalsRow)
+    let totalEmps = output.children.length - 1
+    let totEmpstd = document.createElement('td')
+    let totEmpNode = document.createTextNode(totalEmps)
+    totEmpstd.append(totEmpNode)
+    totalsRow.appendChild(totEmpstd)
+    for (let i = 1; i < 5; i++){
+        let numDays = 0
+        let numSwing = 0
+        let numGrave = 0
+        for (let j in output.children){
+            if (output.children[j].children?.[i]){
+                switch(output.children[j].children[i].innerHTML){
+                    case 'day':
+                        numDays++
+                        break;
+                    case 'swing':
+                        numSwing++
+                        break;
+                    case 'grave':
+                        numGrave++
+                        break;
+                    default:
+                        console.log('crap')
+                }
+            }
+        }
+        let td = document.createElement('td')
+        let tdTot = document.createTextNode(`${numDays}D ${numSwing}S ${numGrave}G`)
+        td.append(tdTot)
+        totalsRow.appendChild(td)
+    }
+}
