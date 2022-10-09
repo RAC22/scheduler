@@ -21,7 +21,7 @@ function saveData (){
         if(i > 0){
             let name = employees[i].getElementsByTagName('input')[0].value
             if(!name){
-                window.alert('Please make sure Employees have names.')
+                window.alert('Please make sure Employees have names that are unique.')
                 return
             }
             let selects = employees[i].getElementsByTagName('select')
@@ -50,6 +50,19 @@ function saveData (){
                 row : employees[i].outerHTML.toString()
             } 
             employeeArray.push(employee)
+        }
+    }
+    let names = []
+    for (let i in employeeArray){
+        names.push(employeeArray[i].name)
+    }
+    for(let i in names){
+        let num = names.filter(function(name){
+            return name === names[i]
+        }).length
+        if (num > 1){
+            window.alert('Please make names unique')
+            return
         }
     }
     localStorage.setItem('employees', JSON.stringify(employeeArray))
