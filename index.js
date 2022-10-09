@@ -21,7 +21,7 @@ function saveData (){
         if(i > 0){
             let name = employees[i].getElementsByTagName('input')[0].value
             if(!name){
-                window.alert('Please make sure Employees have names that are unique.')
+                window.alert('Please make sure Employees have names.')
                 return
             }
             let selects = employees[i].getElementsByTagName('select')
