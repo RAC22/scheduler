@@ -1,8 +1,13 @@
 const employeeHtmlRow = document.getElementById('roww')
 const employeeTable = document.getElementById('employeetbody')
 const output = document.getElementById('assignments')
+const minNum = document.getElementById('numInput')
 let counter = 1
 let numPer = 2
+minNum.value = numPer
+minNum.addEventListener('change', (event) => {
+    numPer = event.target.value
+});
 function addEmployee () {
     let clone = employeeHtmlRow.cloneNode(true)
     clone.classList.remove('hidden')
@@ -66,9 +71,13 @@ function saveData (){
         }
     }
     localStorage.setItem('employees', JSON.stringify(employeeArray))
+    localStorage.setItem('minNum', numPer)
     calculateSchedule();
 }
 let checkLocal = () => {
+    let min = window.localStorage.getItem('minNum')
+    numPer = min
+    minNum.value = numPer
     let employees = JSON.parse(window.localStorage.getItem('employees'))
     if(employees.length > 0) {
         for (let i in employees){
@@ -257,5 +266,9 @@ function buildOutput (emps) {
         let tdTot = document.createTextNode(`${numDays}D ${numSwing}S ${numGrave}G`)
         td.append(tdTot)
         totalsRow.appendChild(td)
+        if(numDays < numPer || numSwing < numPer || numGrave < numPer){
+            alert(`Not enough employees to fill shifts at minimum number of ${numPer}`)
+            break
+        }
     }
 }
