@@ -238,7 +238,7 @@ function buildOutput (emps) {
     output.appendChild(totalsRow)
     let totalEmps = output.children.length - 1
     let totEmpstd = document.createElement('td')
-    let totEmpNode = document.createTextNode(totalEmps)
+    let totEmpNode = document.createTextNode(`${totalEmps} Employee Count`)
     totEmpstd.append(totEmpNode)
     totalsRow.appendChild(totEmpstd)
     for (let i = 1; i < 5; i++){
